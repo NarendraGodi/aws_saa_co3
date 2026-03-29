@@ -14,34 +14,33 @@ Total Questions: 207
 - (C) S3 and Route 53
 - (D) S3 and ElastiCache
 - (E) S3 and Route 53 is the correct answer. S3 is used to store the static website files; however, it would use a URL like bucket_name.s3-website-us-west-1.amazonaws.com. To also use a custom domain name, Route 53, the AWS DNS service, is required. DynDNS is not an AWS service. ELB and ElastiCache will not help to provide a custom DNS name.
-- (F) You are implementing an ELB solution. You want to ensure high availability. Where should the resources to which ELB directs be located?
+**q1.a** You are implementing an ELB solution. You want to ensure high availability. Where should the resources to which ELB directs be located?
 - (G) In one region
 - (H) In one Availability Zone
 - (I) In different Availability Zones
 - (J) In one VPC
 - () In different Availability Zones is correct. To ensure high availability, resources should be in more than one Availability Zone. ELB will direct traffic to healthy resources in the various Availability Zones.
-- () You have been asked to host a static website in AWS as quickly as possible. What is the simplest solution to use?
+**q1.b** You have been asked to host a static website in AWS as quickly as possible. What is the simplest solution to use?
 - () S3
 - () EFS
 - () ELB
 - () EC2 instance
-- () S3 is the correct answer. The simplest solution is to place the website files into an S3 bucket and then enable web sharing on the bucket and associate it with a DNS name. ELB and EFS do not directly provide hosting. An EC2 instance would require instantiating a full instance, configuring the web service on the instance, and then placing the website files into the instance, which is more complex than hosting through an S3 bucket.
-- () You have implemented a NACL and notice that return traffic from an internal request is not allowed. Why is this happening?
+**Explanation:**
+   S3 is the correct answer. The simplest solution is to place the website files into an S3 bucket and then enable web sharing on the bucket and associate it with a DNS name. ELB and EFS do not directly provide hosting. An EC2 instance would require instantiating a full instance, configuring the web service on the instance, and then placing the website files into the instance, which is more complex than hosting through an S3 bucket.
+**q1.c** You have implemented a NACL and notice that return traffic from an internal request is not allowed. Why is this happening?
 - () NACLs are stateful
 - () NACLs have many bugs in AWS
 - () NACLs are stateless
 - () NACLs, once implemented, block all inbound traffic regardless of rules
-- () NACLs are stateless is the correct answer. Because NACLs are stateless (unlike security groups, which are stateful) they do not automatically allow inbound responses to internally originating requests. All inbound communications must be explicitly allowed by rules.
-- () You have been asked to provide a folder-like structure in S3 buckets. How can this be accomplished?
+**Explanation:**
+NACLs are stateless is the correct answer. Because NACLs are stateless (unlike security groups, which are stateful) they do not automatically allow inbound responses to internally originating requests. All inbound communications must be explicitly allowed by rules.
+**q1.d** You have been asked to provide a folder-like structure in S3 buckets. How can this be accomplished?
 - () Using actual directories
 - () Using nested S3 buckets
 - **() Using prefixes and delimiters** [CORRECT]
 
 **Answer:**
 Correct Answer: **Using prefixes and delimiters**
-
-**Explanation:**
-NACLs are stateless is the correct answer. Because NACLs are stateless (unlike security groups, which are stateful) they do not automatically allow inbound responses to internally originating requests. All inbound communications must be explicitly allowed by rules.
 
 ---
 
