@@ -4,8 +4,6 @@ Total Questions: 207
 
 ---
 
-## Question 1
-
 ****Q:** To use a custom domain name and URL when hosting a static website in a bucket, what two services of AWS are required?**
 
 **Options:**
@@ -13,18 +11,18 @@ Total Questions: 207
 - (B) S3 and ELB
 - (C) S3 and Route 53
 - (D) S3 and ElastiCache
-- (E) S3 and Route 53 is the correct answer. S3 is used to store the static website files; however, it would use a URL like bucket_name.s3-website-us-west-1.amazonaws.com. To also use a custom domain name, Route 53, the AWS DNS service, is required. DynDNS is not an AWS service. ELB and ElastiCache will not help to provide a custom DNS name.
+ S3 and Route 53 is the correct answer. S3 is used to store the static website files; however, it would use a URL like bucket_name.s3-website-us-west-1.amazonaws.com. To also use a custom domain name, Route 53, the AWS DNS service, is required. DynDNS is not an AWS service. ELB and ElastiCache will not help to provide a custom DNS name.
 
 - 
-****q1.a** You are implementing an ELB solution. You want to ensure high availability. Where should the resources to which ELB directs be located?**
+**You are implementing an ELB solution. You want to ensure high availability. Where should the resources to which ELB directs be located?**
 - (G) In one region
 - (H) In one Availability Zone
 - (I) In different Availability Zones
 - (J) In one VPC
-- () In different Availability Zones is correct. To ensure high availability, resources should be in more than one Availability Zone. ELB will direct traffic to healthy resources in the various Availability Zones.
+In different Availability Zones is correct. To ensure high availability, resources should be in more than one Availability Zone. ELB will direct traffic to healthy resources in the various Availability Zones.
 
-- 
-****q1.b** You have been asked to host a static website in AWS as quickly as possible. What is the simplest solution to use?**
+
+**You have been asked to host a static website in AWS as quickly as possible. What is the simplest solution to use?**
 - () S3
 - () EFS
 - () ELB
@@ -33,7 +31,7 @@ Total Questions: 207
    S3 is the correct answer. The simplest solution is to place the website files into an S3 bucket and then enable web sharing on the bucket and associate it with a DNS name. ELB and EFS do not directly provide hosting. An EC2 instance would require instantiating a full instance, configuring the web service on the instance, and then placing the website files into the instance, which is more complex than hosting through an S3 bucket.
 
   
-****q1.c** You have implemented a NACL and notice that return traffic from an internal request is not allowed. Why is this happening?**
+**You have implemented a NACL and notice that return traffic from an internal request is not allowed. Why is this happening?**
 - () NACLs are stateful
 - () NACLs have many bugs in AWS
 - () NACLs are stateless
@@ -42,19 +40,17 @@ Total Questions: 207
 NACLs are stateless is the correct answer. Because NACLs are stateless (unlike security groups, which are stateful) they do not automatically allow inbound responses to internally originating requests. All inbound communications must be explicitly allowed by rules.
 
 
-****q1.d** You have been asked to provide a folder-like structure in S3 buckets. How can this be accomplished?**
+**You have been asked to provide a folder-like structure in S3 buckets. How can this be accomplished?**
 - () Using actual directories
 - () Using nested S3 buckets
-- **() Using prefixes and delimiters** [CORRECT]
+- () Using prefixes and delimiters
 
 **Answer:**
 Correct Answer: **Using prefixes and delimiters**
 
 ---
 
-## Question 2
-
-****Q:** You are implementing an ELB solution. You want to ensure high availability. Where should the resources to which ELB directs be located?**
+**Q: You are implementing an ELB solution. You want to ensure high availability. Where should the resources to which ELB directs be located?**
 
 **Options:**
 - (A) In one region
@@ -68,17 +64,16 @@ Correct Answer: **Using prefixes and delimiters**
 - (H) EFS
 - (I) ELB
 - (J) EC2 instance
-- ** S3 is the correct answer. The simplest solution is to place the website files into an S3 bucket and then enable web sharing on the bucket and associate it with a DNS name. ELB and EFS do not directly provide hosting. An EC2 instance would require instantiating a full instance, configuring the web service on the instance, and then placing the website files into the instance, which is more complex than hosting through an S3 bucket.**
+  **S3 is the correct answer. The simplest solution is to place the website files into an S3 bucket and then enable web sharing on the bucket and associate it with a DNS name. ELB and EFS do not directly provide hosting. An EC2 instance would require instantiating a full instance, configuring the web service on the instance, and then placing the website files into the instance, which is more complex than hosting through an S3 bucket.**
 
-- 
 - **You have implemented a NACL and notice that return traffic from an internal request is not allowed. Why is this happening?**
 - () NACLs are stateful
 - () NACLs have many bugs in AWS
 - () NACLs are stateless
 - () NACLs, once implemented, block all inbound traffic regardless of rules
-- **NACLs are stateless is the correct answer. Because NACLs are stateless (unlike security groups, which are stateful) they do not automatically allow inbound responses to internally originating requests. All inbound communications must be explicitly allowed by rules.**
+  **NACLs are stateless is the correct answer. Because NACLs are stateless (unlike security groups, which are stateful) they do not automatically allow inbound responses to internally originating requests. All inbound communications must be explicitly allowed by rules.**
 
-**  You have been asked to provide a folder-like structure in S3 buckets. How can this be accomplished?**
+**You have been asked to provide a folder-like structure in S3 buckets. How can this be accomplished?**
 - () Using actual directories
 - () Using nested S3 buckets
 - () Using prefixes and delimiters
@@ -95,24 +90,21 @@ Correct Answer: **S3 bucket**
 . Nested S3 buckets are not supported.
 
 ---
-
-## Question 3
-
-**Q:** You have been asked to host a static website in AWS as quickly as possible. What is the simplest solution to use?
+**Q:You have been asked to host a static website in AWS as quickly as possible. What is the simplest solution to use?**
 
 **Options:**
 - (A) S3
 - (B) EFS
 - (C) ELB
 - (D) EC2 instance
-- (E) S3 is the correct answer. The simplest solution is to place the website files into an S3 bucket and then enable web sharing on the bucket and associate it with a DNS name. ELB and EFS do not directly provide hosting. An EC2 instance would require instantiating a full instance, configuring the web service on the instance, and then placing the website files into the instance, which is more complex than hosting through an S3 bucket.
-- (F) You have implemented a NACL and notice that return traffic from an internal request is not allowed. Why is this happening?
+S3 is the correct answer. The simplest solution is to place the website files into an S3 bucket and then enable web sharing on the bucket and associate it with a DNS name. ELB and EFS do not directly provide hosting. An EC2 instance would require instantiating a full instance, configuring the web service on the instance, and then placing the website files into the instance, which is more complex than hosting through an S3 bucket.
+  **You have implemented a NACL and notice that return traffic from an internal request is not allowed. Why is this happening?**
 - (G) NACLs are stateful
 - (H) NACLs have many bugs in AWS
 - (I) NACLs are stateless
 - (J) NACLs, once implemented, block all inbound traffic regardless of rules
-- () NACLs are stateless is the correct answer. Because NACLs are stateless (unlike security groups, which are stateful) they do not automatically allow inbound responses to internally originating requests. All inbound communications must be explicitly allowed by rules.
-- () You have been asked to provide a folder-like structure in S3 buckets. How can this be accomplished?
+  **NACLs are stateless is the correct answer. Because NACLs are stateless (unlike security groups, which are stateful) they do not automatically allow inbound responses to internally originating requests. All inbound communications must be explicitly allowed by rules.**
+**You have been asked to provide a folder-like structure in S3 buckets. How can this be accomplished?**
 - () Using actual directories
 - () Using nested S3 buckets
 - () Using prefixes and delimiters
@@ -123,8 +115,9 @@ Correct Answer: **S3 bucket**
 - () S3 bucket
 - () The are not stored, they are sent via e-mail
 - () In unmanaged, no-cost storage
-- () S3 bucket is the correct answer. Cost and Usage Reports are generated from Redshift or QuickSight data source and are stored in S3 buckets. The Cost and Usage Reports interface provides an option to create an S3 bucket, appropriately configured, for report storage.
-- () What AWS tool can be used to provide automatic recommendations for improvements in your AWS account security configuration?
+- () S3 bucket is the correct answer.
+
+**Cost and Usage Reports are generated from Redshift or QuickSight data source and are stored in S3 buckets. The Cost and Usage Reports interface provides an option to create an S3 bucket, appropriately configured, for report storage,What AWS tool can be used to provide automatic recommendations for improvements in your AWS account security configuration?**
 - () CloudWatch
 - **() Trusted Advisor** [CORRECT]
 
@@ -135,17 +128,6 @@ Correct Answer: **Trusted Advisor**
 S3 bucket is the correct answer. Cost and Usage Reports are generated from Redshift or QuickSight data source and are stored in S3 buckets. The Cost and Usage Reports interface provides an option to create an S3 bucket, appropriately configured, for report storage.
 
 ---
-
-## Question 4
-
-**Q:** You have implemented a NACL and notice that return traffic from an internal request is not allowed. Why is this happening?
-
-**Options:**
-- (A) NACLs are stateful
-- (B) NACLs have many bugs in AWS
-- (C) NACLs are stateless
-- (D) NACLs, once implemented, block all inbound traffic regardless of rules
-- (E) NACLs are stateless is the correct answer. Because NACLs are stateless (unlike security groups, which are stateful) they do not automatically allow inbound responses to internally originating requests. All inbound communications must be explicitly allowed by rules.
 - (F) You have been asked to provide a folder-like structure in S3 buckets. How can this be accomplished?
 - (G) Using actual directories
 - (H) Using nested S3 buckets
