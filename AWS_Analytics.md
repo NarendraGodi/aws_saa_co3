@@ -1,12 +1,49 @@
 ---
 
+## AWS Services Reference
+
+| Service | Description |
+|---|---|
+| **Amazon SQS (Simple Queue Service)** | A fully managed message queuing service that enables decoupling and scaling of microservices, distributed systems, and serverless applications. |
+| **Amazon Kinesis Data Streams** | A real-time data streaming service that enables you to collect, process, and analyze streaming data at massive scale. |
+| **Amazon SNS (Simple Notification Service)** | A fully managed pub/sub messaging and mobile notifications service for coordinating message delivery to subscribing endpoints and clients. |
+| **Amazon EC2 (Elastic Compute Cloud)** | A web service that provides secure, resizable compute capacity in the cloud, allowing you to run virtual servers on demand. |
+| **Amazon EKS (Elastic Kubernetes Service)** | A fully managed Kubernetes service that makes it easy to run Kubernetes on AWS without needing to install and operate your own control plane. |
+| **Amazon S3 (Simple Storage Service)** | An object storage service offering industry-leading scalability, data availability, security, and performance for storing and retrieving any amount of data. |
+| **Amazon DynamoDB** | A fully managed, serverless NoSQL key-value and document database that delivers single-digit millisecond performance at any scale. |
+| **AWS IAM (Identity and Access Management)** | A service that enables you to securely manage access to AWS services and resources by creating and controlling users, groups, roles, and permissions. |
+| **AWS Fargate** | A serverless compute engine for containers that works with both Amazon ECS and Amazon EKS, removing the need to provision and manage servers. |
+| **Amazon ECS (Elastic Container Service)** | A fully managed container orchestration service that makes it easy to deploy, manage, and scale containerized applications using Docker. |
+| **Amazon FSx** | A fully managed service that provides feature-rich, high-performance file systems, including FSx for Windows File Server (SMB/NTFS) and FSx for Lustre. |
+| **Amazon EFS (Elastic File System)** | A fully managed, elastic NFS file system for use with AWS Cloud services and on-premises resources, designed exclusively for Linux-based workloads. |
+| **AWS Storage Gateway** | A hybrid cloud storage service that gives on-premises applications access to virtually unlimited cloud storage by connecting on-premises environments to AWS storage services. |
+| **Amazon RDS (Relational Database Service)** | A managed relational database service that makes it easy to set up, operate, and scale databases in the cloud, supporting engines like MySQL, PostgreSQL, and more. |
+| **Amazon VPC (Virtual Private Cloud)** | A service that lets you provision a logically isolated section of the AWS Cloud where you can launch AWS resources in a virtual network you define. |
+| **NAT Gateway** | A managed AWS networking component that allows instances in a private subnet to initiate outbound internet traffic while preventing unsolicited inbound connections. |
+| **Internet Gateway** | A horizontally scaled, redundant VPC component that allows communication between your VPC and the internet, enabling inbound and outbound internet access. |
+| **AWS CloudTrail** | A service that enables governance, compliance, and operational and risk auditing of your AWS account by logging and retaining API calls and related events. |
+| **Amazon QuickSight** | A cloud-native business intelligence and data visualization service that enables you to create interactive dashboards and gain insights from your data. |
+| **Amazon Redshift** | A fully managed, petabyte-scale cloud data warehouse service that makes it simple and cost-effective to analyze large volumes of data using standard SQL. |
+| **AWS Glue** | A serverless data integration service that makes it easier to discover, prepare, move, and integrate data from multiple sources for analytics and application development. |
+| **AWS Batch** | A fully managed service that enables developers to run batch computing workloads of any scale on AWS without managing infrastructure. |
+| **AWS Organizations** | A service for centrally managing and governing multiple AWS accounts, enabling policy-based management through organizational units (OUs) and service control policies (SCPs). |
+| **AWS Config** | A service that continuously monitors and records AWS resource configurations and allows you to automate evaluation of recorded configurations against desired settings. |
+| **AWS Lambda** | A serverless compute service that lets you run code without provisioning or managing servers, executing functions in response to events and automatically scaling as needed. |
+| **Amazon GuardDuty** | A threat detection service that continuously monitors AWS accounts and workloads for malicious activity and unauthorized behavior using machine learning and threat intelligence. |
+| **Amazon Inspector** | An automated security assessment service that helps improve the security and compliance of applications by identifying vulnerabilities and deviations from best practices. |
+| **Amazon Cognito** | A service that provides user identity and authentication for web and mobile apps, supporting sign-up, sign-in, and access control with social and enterprise identity providers. |
+| **Amazon Macie** | An AWS data security service that uses machine learning to discover, classify, and protect sensitive data stored in Amazon S3. |
+| **Amazon CloudWatch** | A monitoring and observability service that provides data and actionable insights for AWS resources, applications, and services through metrics, logs, and alarms. |
+
+---
+
 ## AWS Analytics – Practice Questions
 
 ---
 
 ### Question 8
 
-**Q:** There are two applications in a company: a sender application that sends messages containing payloads, and a processing application that receives messages containing payloads. The company wants to decouple the two applications.
+**Q:** There are two applications in a company: a sender application that sends messages containing payloads, and a processing application that receives messages containing payloads. The company wants to ensure that the messages are not lost and that unprocessed messages are retained. Which solution should the Solutions Architect recommend?
 
 **Options:**
 
@@ -19,7 +56,7 @@
 
 **Explanation:**
 
-Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SQS eliminates the complexity and overhead associated with managing and operating message-oriented middleware.
+Amazon Simple Queue Service (SQS) is a fully managed message queuing service that enables you to decouple and scale microservices, distributed systems, and serverless applications. SQS eliminates the complexity and overhead associated with managing and operating message-oriented middleware, and empowers developers to focus on differentiating work. A dead-letter queue (DLQ) is used for messages that cannot be processed successfully, preventing message loss.
 
 - **CORRECT:** "Provide an Amazon Simple Queue Service (Amazon SQS) queue for the sender and processor applications. Set up a dead-letter queue to collect failed messages" is the correct answer.
 - **INCORRECT:** "Set up a Redis database on Amazon EC2..." is incorrect.
@@ -34,12 +71,12 @@ Amazon Simple Queue Service (SQS) is a fully managed message queuing service tha
 
 ### Question 20
 
-**Q:** A logistics company is running a containerized application on an Amazon Elastic Kubernetes Service (Amazon EKS) cluster with Amazon EC2 instances as the worker nodes. The application includes a reporting service that needs access to Amazon S3 and a management dashboard that needs access to DynamoDB. The company requires a secure and scalable approach to provide these permissions following the principle of least privilege.
+**Q:** A logistics company is running a containerized application on an Amazon Elastic Kubernetes Service (Amazon EKS) cluster with Amazon EC2 instances as the worker nodes. The application includes a reporting service that needs read access to an Amazon S3 bucket and a management dashboard that requires read/write access to Amazon DynamoDB. How should a Solutions Architect configure IAM permissions for these services following the principle of least privilege?
 
 **Options:**
 
 - Create IAM roles with permissions for Amazon S3 and DynamoDB access. Attach the Amazon S3 role to the reporting service Pods and the DynamoDB role to the management dashboard Pods using a shared service account.
-- Create separate IAM policies for Amazon S3 and DynamoDB access. Attach both policies to the IAM role associated with the EC2 instance profile. Use Kubernetes namespaces to restrict access for the relevant Pods.
+- Create separate IAM policies for Amazon S3 and DynamoDB access. Attach both policies to the IAM role associated with the EC2 instance profile. Use Kubernetes namespaces to restrict access for the respective services.
 - Configure role-based access control (RBAC) within Kubernetes to define which Pods can access Amazon S3 and DynamoDB. Use Kubernetes ConfigMaps to store the IAM credentials for each service.
 - **✅ Create separate IAM roles with policies for Amazon S3 and DynamoDB access. Use Kubernetes service accounts with IAM Role for Service Accounts (IRSA) to assign the AmazonS3FullAccess policy to the reporting service and the AmazonDynamoDBFullAccess policy to the management dashboard.**
 
@@ -48,7 +85,7 @@ Amazon Simple Queue Service (SQS) is a fully managed message queuing service tha
 **Explanation:**
 
 - **CORRECT:** Using IRSA with separate IAM roles per service account follows the principle of least privilege and is the recommended approach for EKS workloads.
-- **INCORRECT:** "Create separate IAM policies... Attach both policies to the IAM role associated with the EC2 instance profile..." is incorrect — this grants all pods on the node access to both services.
+- **INCORRECT:** "Create separate IAM policies... Attach both policies to the IAM role associated with the EC2 instance profile..." is incorrect — this grants all pods on the node access to both services, violating least privilege.
 - **INCORRECT:** "Create IAM roles... using a shared service account" is incorrect — a shared service account cannot enforce per-pod IAM role separation.
 - **INCORRECT:** "Configure RBAC... Use Kubernetes ConfigMaps to store IAM credentials" is incorrect — storing IAM credentials in ConfigMaps is a security anti-pattern.
 
@@ -61,7 +98,7 @@ Amazon Simple Queue Service (SQS) is a fully managed message queuing service tha
 
 ### Question 52 (a)
 
-**Q:** A company is migrating from an on-premises infrastructure to the AWS Cloud. One of the company's applications stores files on a Windows file server farm that uses Distributed File System Replication (DFSR) to keep data in sync. What service should the company use?
+**Q:** A company is migrating from an on-premises infrastructure to the AWS Cloud. One of the company's applications stores files on a Windows file server farm that uses Distributed File System Replication (DFSR) to keep data in sync. Which AWS service should a Solutions Architect recommend as a replacement that supports Windows-compatible shared file storage?
 
 **Options:**
 
@@ -74,7 +111,7 @@ Amazon Simple Queue Service (SQS) is a fully managed message queuing service tha
 
 **Explanation:**
 
-Amazon FSx for Windows File Server provides fully managed, highly reliable file storage that is accessible over the industry-standard Server Message Block (SMB) protocol. Amazon FSx is built on Windows Server and supports Distributed File System Replication (DFSR) in Single-AZ deployments.
+Amazon FSx for Windows File Server provides fully managed, highly reliable file storage that is accessible over the industry-standard Server Message Block (SMB) protocol. Amazon FSx is built on Windows Server and supports Active Directory integration, DFSR, and other Windows-native features.
 
 - **CORRECT:** "Amazon FSx" is the correct answer.
 - **INCORRECT:** "Amazon EFS" is incorrect — EFS only supports Linux systems.
@@ -89,7 +126,7 @@ Amazon FSx for Windows File Server provides fully managed, highly reliable file 
 
 ### Question 1
 
-**Q:** A company wants to migrate a legacy web application from an on-premises data center to AWS. The web application consists of a web tier, an application tier, and a MySQL database. The company does not want to manage servers or operating systems. Which two services should the Solutions Architect choose? *(Select TWO)*
+**Q:** A company wants to migrate a legacy web application from an on-premises data center to AWS. The web application consists of a web tier, an application tier, and a MySQL database. The company does not want to manage infrastructure. Which TWO AWS services should a Solutions Architect recommend?
 
 **Options:**
 
@@ -103,7 +140,7 @@ Amazon FSx for Windows File Server provides fully managed, highly reliable file 
 
 **Explanation:**
 
-Amazon RDS is a managed service — you do not need to manage the underlying instances. It is an ideal backend for the application and can run a MySQL database without any refactoring. For the application tier, AWS Fargate is a serverless compute engine for containers that removes the need to manage EC2 instances.
+Amazon RDS is a managed service — you do not need to manage the underlying instances. It is an ideal backend for the application and can run a MySQL database without any refactoring. For the application tier, AWS Fargate is a serverless compute engine for containers that removes the need to provision or manage servers.
 
 - **CORRECT:** "AWS Fargate" is a correct answer.
 - **CORRECT:** "Amazon RDS for MySQL" is also a correct answer.
@@ -121,7 +158,7 @@ Amazon RDS is a managed service — you do not need to manage the underlying ins
 
 ### Question 52 (b)
 
-**Q:** An application running on Amazon ECS processes data and then writes objects to an Amazon S3 bucket. The application requires permissions to make the S3 API calls. How can a Solutions Architect enable access to S3?
+**Q:** An application running on Amazon ECS processes data and then writes objects to an Amazon S3 bucket. The application requires permissions to make the S3 API calls. How can a Solutions Architect provide the necessary permissions?
 
 **Options:**
 
@@ -134,7 +171,7 @@ Amazon RDS is a managed service — you do not need to manage the underlying ins
 
 **Explanation:**
 
-With IAM roles for Amazon ECS tasks, you can specify an IAM role that can be used by the containers in a task. You define the IAM role to use in your task definitions, or you can use a `taskRoleArn` override when running a task manually with the RunTask API operation.
+With IAM roles for Amazon ECS tasks, you can specify an IAM role that can be used by the containers in a task. You define the IAM role to use in your task definitions, or you can use a `taskRoleArn` override when running a task manually.
 
 - **CORRECT:** "Create an IAM role that has read/write permissions to the bucket and update the task definition to specify the role as the taskRoleArn" is the correct answer.
 - **INCORRECT:** "Update the S3 policy in IAM to allow read/write access from Amazon ECS..." is incorrect — policies must be assigned to tasks using IAM Roles.
@@ -149,7 +186,7 @@ With IAM roles for Amazon ECS tasks, you can specify an IAM role that can be use
 
 ### Question 40
 
-**Q:** IAM permissions-related Access Denied errors and Unauthorized errors need to be analyzed and troubleshooted by a company. AWS CloudTrail has been enabled at the company. Which solution will meet these requirements most operationally efficiently?
+**Q:** IAM permissions-related Access Denied errors and Unauthorized errors need to be analyzed and troubleshooted by a company. AWS CloudTrail has been enabled at the company. Which solution will meet this requirement with the LEAST operational overhead?
 
 **Options:**
 
@@ -162,7 +199,7 @@ With IAM roles for Amazon ECS tasks, you can specify an IAM role that can be use
 
 **Explanation:**
 
-CloudTrail logs are stored natively within an S3 bucket, which can then be easily integrated with Amazon QuickSight. Amazon QuickSight is a data visualization tool that can display any IAM permissions-related errors in a simple dashboard.
+CloudTrail logs are stored natively within an S3 bucket, which can then be easily integrated with Amazon QuickSight. Amazon QuickSight is a data visualization tool that can display any IAM permissions-related errors in a simple dashboard format with minimal operational overhead.
 
 - **CORRECT:** "Search CloudTrail logs with Amazon QuickSight. Create a dashboard to identify the errors" is the correct answer.
 - **INCORRECT:** "Create a custom script and execute it against CloudTrail logs using AWS Batch" is incorrect — writing custom scripts is more effort than using native tools.
@@ -177,7 +214,7 @@ CloudTrail logs are stored natively within an S3 bucket, which can then be easil
 
 ### Question 41
 
-**Q:** An application is running in a private subnet of an Amazon VPC and must have outbound internet access for downloading updates. The Solutions Architect does not want the application exposed to inbound connection attempts. Which steps should be taken?
+**Q:** An application is running in a private subnet of an Amazon VPC and must have outbound internet access for downloading updates. The Solutions Architect does not want the application exposed to inbound internet traffic. What should the Solutions Architect do to enable outbound internet access?
 
 **Options:**
 
@@ -190,7 +227,7 @@ CloudTrail logs are stored natively within an S3 bucket, which can then be easil
 
 **Explanation:**
 
-To enable outbound connectivity for instances in private subnets, a NAT gateway can be created. The NAT gateway is created in a public subnet and a route must be created in the private subnet pointing to the NAT gateway. An internet gateway must also be attached to the VPC. Instances in a private subnet cannot be directly reached from the internet, so the application will not be exposed to inbound connections.
+To enable outbound connectivity for instances in private subnets, a NAT gateway can be created. The NAT gateway is created in a public subnet and a route must be created in the private subnet pointing to the NAT gateway. An internet gateway must also be attached to the VPC for the NAT gateway to route traffic to the internet.
 
 - **CORRECT:** "Create a NAT gateway and attach an internet gateway to the VPC" is the correct answer.
 - **INCORRECT:** "Create a NAT gateway but do not attach an internet gateway to the VPC" is incorrect — an internet gateway must be attached to the VPC for any outbound connections to work.
@@ -205,7 +242,7 @@ To enable outbound connectivity for instances in private subnets, a NAT gateway 
 
 ### Question 48
 
-**Q:** A large company is currently using multiple AWS accounts as part of its cloud deployment model, and these accounts are currently structured using AWS Organizations. A Solutions Architect has been tasked with ensuring that only accounts within AWS Organizations can access a specific Amazon S3 bucket. What is the most operationally efficient way to achieve this?
+**Q:** A large company is currently using multiple AWS accounts as part of its cloud deployment model, and these accounts are currently structured using AWS Organizations. A Solutions Architect has been tasked with restricting access to an Amazon S3 bucket so that only accounts within the AWS Organization can access it. What is the SIMPLEST way to achieve this?
 
 **Options:**
 
@@ -218,7 +255,7 @@ To enable outbound connectivity for instances in private subnets, a NAT gateway 
 
 **Explanation:**
 
-The `aws:PrincipalOrgID` global key provides a simpler alternative to manually listing and updating all the account IDs for all AWS accounts that exist within an Organization. It can be used directly in an S3 bucket policy to restrict access.
+The `aws:PrincipalOrgID` global key provides a simpler alternative to manually listing and updating all the account IDs for all AWS accounts that exist within an Organization. It can be used directly in an S3 bucket policy to restrict access to only those principals that belong to the AWS Organization.
 
 - **CORRECT:** "Use the global key of AWS Organizations within a bucket policy using the aws:PrincipalOrgID key..." is the correct answer.
 - **INCORRECT:** "Use Attribute Based Access Control by referencing Tags..." is incorrect — while viable, it is more complex and less efficient.
@@ -233,7 +270,7 @@ The `aws:PrincipalOrgID` global key provides a simpler alternative to manually l
 
 ### Question 12
 
-**Q:** A systems administrator of a company wants to detect and remediate the compromise of services such as Amazon EC2 instances and Amazon S3 buckets. Which AWS service can the administrator use to meet this requirement?
+**Q:** A systems administrator of a company wants to detect and remediate the compromise of services such as Amazon EC2 instances and Amazon S3 buckets. Which AWS service can the administrator use to protect the AWS environment against threats?
 
 **Options:**
 
@@ -246,8 +283,7 @@ The `aws:PrincipalOrgID` global key provides a simpler alternative to manually l
 
 **Explanation:**
 
-Amazon GuardDuty gives you access to built-in detection techniques that are developed and optimized for the cloud. It offers HTTPS APIs, CLI tools, and Amazon CloudWatch Events to support automated security responses to security findings.
-
+Amazon GuardDuty gives you access to built-in detection techniques that are developed and optimized for the cloud. It offers HTTPS APIs, CLI tools, and Amazon CloudWatch Events to support automated security responses. GuardDuty uses machine learning, anomaly detection, and integrated threat intelligence to identify and prioritize potential threats across AWS accounts, workloads, and data.
 - **CORRECT:** "Amazon GuardDuty" is the correct answer.
 - **INCORRECT:** "Amazon Cognito" is incorrect — Cognito provides sign-up and sign-in services for mobile apps.
 - **INCORRECT:** "Amazon Inspector" is incorrect — Inspector identifies vulnerabilities and evaluates against security best practices, but does not detect active compromise.
