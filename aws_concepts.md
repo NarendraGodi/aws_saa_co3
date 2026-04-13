@@ -293,4 +293,123 @@
 - Gateway Endpoints are **free**; Interface Endpoints are **charged per hour + per GB**
 - Transit Gateway supports **multicast** and **inter-region peering**
 
+### 11. CloudFront vs Lambda@Edge vs Global Accelerator
+
+#### 1. Amazon CloudFront (CDN)
+
+- **What**: A **Content Delivery Network (CDN)** that caches content (static + dynamic) at **edge locations** close to users.
+- **Supports**: HTTP/HTTPS, static (S3), dynamic (ALB/NLB/EC2), media streaming, signed URLs/cookies.
+- **Optimizes**:
+  - Latency (serves from nearest edge)
+  - Offloading origin (fewer hits to S3/ALB)
+  - Security (integrates with WAF, Shield, Origin Access Control/OAI).
+
+**When to use CloudFront**
+
+- Global users accessing:
+  - Static assets: HTML, CSS, JS, images, videos (S3, ALB, EC2).
+  - Dynamic web apps/APIs where caching (full or partial) is useful.
+- Need:
+  - **Lower latency** worldwide.
+  - **DDoS protection** and WAF at edge.
+  - **Signed URLs/cookies** for secure content delivery (paid content, downloads).
+
+---
+
+#### 2. Lambda@Edge
+
+- **What**: Run **Lambda functions at CloudFront edge locations** to customize requests/responses.
+- **Triggers on**:
+  - Viewer Request (before CloudFront cache).
+  - Viewer Response (before sending to client).
+  - Origin Request (before request hits origin).
+  - Origin Response (after origin responds).
+
+**Typical use cases**
+
+- **Routing / Rewrites / Redirects**:
+  - `/` → `/index.html`, language-based (`/en/`, `/fr/`), A/B testing.
+- **Security / Auth at Edge**:
+  - JWT validation, custom headers, simple auth before hitting origin.
+- **Header / Cookie manipulation**:
+  - Add/remove headers, cookies for personalization.
+- **SEO / URL normalization**:
+  - Lowercasing URLs, removing trailing slashes, etc.
+
+**When to use Lambda@Edge**
+
+- You already use **CloudFront** and need:
+  - Request/response **logic at edge**.
+  - URL rewrites/redirects without modifying origin.
+  - Authentication, header manipulation, or localization at edge.
+
+> Lambda@Edge is an **extension of CloudFront**, not a separate delivery product.
+
+---
+
+#### 3. AWS Global Accelerator
+
+- **What**: A **global anycast network accelerator** that provides **two static anycast IPs** and routes user traffic over the **AWS global network** to the nearest healthy AWS endpoint.
+- **Works at**: Network layer (Layer 4 – TCP/UDP).
+- **Targets**:
+  - ALB / NLB.
+  - EC2 instances.
+  - Elastic IPs in multiple regions.
+
+**Key features**
+
+- **Static Anycast IPs**:
+  - Same two IPs for all regions/endpoints.
+  - Great for clients that **must connect to fixed IPs** (firewall rules, corporate networks).
+- **Health-based + latency-based routing**:
+  - Routes to **nearest healthy** endpoint.
+  - Automatic failover between regions.
+- **Uses AWS global backbone**, not the public internet, for most of the path.
+
+**When to use Global Accelerator**
+
+- Global users accessing:
+  - Latency-sensitive **TCP/UDP applications** (gaming, VoIP, trading, APIs).
+  - Multi-region ALB/NLB/EC2 backends.
+- Need:
+  - **Static IPs** for your app.
+  - **Fast regional failover** and health-based routing.
+  - Improved performance for **non-HTTP protocols** or custom ports.
+
+---
+
+#### CloudFront vs Lambda@Edge vs Global Accelerator — Quick Comparison
+
+| Aspect | CloudFront | Lambda@Edge | Global Accelerator |
+|-------|------------|-------------|--------------------|
+| **Layer** | L7 (HTTP/HTTPS) | L7 (runs with CloudFront) | L4 (TCP/UDP) |
+| **Main Purpose** | CDN + caching | Logic at edge for CloudFront | Network acceleration + static IPs |
+| **Traffic Type** | Web content (HTTP/HTTPS) | Same as CloudFront | Any TCP/UDP (HTTP or non-HTTP) |
+| **Edge Compute** | No (just config, caching) | Yes (Lambda code) | No (routing only) |
+| **Static IPs** | ❌ No | ❌ No | ✅ Yes (2 anycast IPs) |
+| **Best For** | Websites, APIs, static assets | URL rewrites, auth, personalization at edge | Low latency global apps, multi-region failover |
+
+---
+
+#### When to Use What?
+
+- **CloudFront**:
+  - Users are worldwide.
+  - Content is HTTP/HTTPS (web/app/API).
+  - You want **caching and WAF/DDoS protection**.
+  - Example: Static website on S3, API behind ALB, media streaming.
+
+- **Lambda@Edge** (with CloudFront):
+  - You also need **logic at edge**:
+    - URL rewrites, country/language routing.
+    - Simple auth or header manipulation before hitting origin.
+  - Example: Multi-tenant app doing tenant routing based on hostname at edge.
+
+- **Global Accelerator**:
+  - You have **multi-region endpoints** and want:
+    - **Static IPs**.
+    - Optimized routing over AWS backbone.
+    - Fast failover between regions.
+  - Protocol may be HTTP or **non-HTTP** (custom TCP/UDP).
+  - Example: Gaming backend, financial trading API, VoIP, or an ALB in multiple regions behind static IPs.
 ---
