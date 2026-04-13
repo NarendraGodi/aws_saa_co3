@@ -156,3 +156,40 @@
 | **Use case** | Temporary/dev instances | Production, NAT Gateway, failover |
 
 ---
+
+### 8. Security Groups vs NACLs
+
+#### Security Groups (SG)
+- **What**: A virtual **stateful firewall** at the **instance level** (EC2, RDS, Lambda, etc.)
+- **Stateful**: Return traffic is **automatically allowed** — you only need to define inbound OR outbound rules
+- **Default**: Allows all outbound, denies all inbound
+- Rules are **allow only** — you cannot explicitly deny traffic
+
+#### NACLs (Network Access Control Lists)
+- **What**: A virtual **stateless firewall** at the **subnet level**
+- **Stateless**: Return traffic must be **explicitly allowed** in both directions
+- **Default NACL**: Allows ALL inbound and outbound traffic
+- **Custom NACL**: Denies ALL traffic until you add rules
+- Rules are **numbered** and evaluated in order (lowest number first)
+- Can have both **allow and deny** rules
+
+#### Key Comparison
+| | Security Group | NACL |
+|---|---|---|
+| **Level** | Instance | Subnet |
+| **State** | Stateful | Stateless |
+| **Rules** | Allow only | Allow + Deny |
+| **Rule evaluation** | All rules evaluated | Rules evaluated in number order |
+| **Return traffic** | Auto-allowed | Must explicitly allow |
+| **Default** | Deny all inbound, Allow all outbound | Allow all (default NACL) |
+| **Association** | Assigned to instances | Assigned to subnets |
+| **Use case** | Fine-grained instance-level control | Broad subnet-level control, block IPs |
+
+#### Key Points
+- **First line of defense** = NACL (subnet level) → **Second line** = Security Group (instance level)
+- Use NACLs to **block specific IPs** (e.g., block a malicious IP) — SGs can't deny
+- A single SG can be applied to **multiple instances**
+- A subnet can only have **one NACL** at a time
+- **Ephemeral ports** (1024–65535) must be allowed in NACL outbound rules for return traffic
+
+---
