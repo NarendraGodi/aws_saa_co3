@@ -69,3 +69,41 @@
 - One subnet can only be associated with **one route table** at a time
 
 ---
+
+### 4. Internet Gateway (IGW)
+- **What**: A horizontally scaled, redundant, highly available VPC component that allows communication between your VPC and the internet.
+- **Attached to**: VPC (one IGW per VPC)
+
+#### Key Points
+- Supports **both inbound and outbound** internet traffic
+- **Free** to use (no hourly charge); you only pay for data transfer
+- Must be **attached to the VPC** and the subnet's route table must have a route `0.0.0.0/0 → IGW`
+- Performs **NAT** for instances with public IPs
+- **Highly available** by default — no need to manage redundancy
+
+---
+
+### 5. NAT Gateway
+- **What**: A managed AWS service that allows instances in a **private subnet** to initiate **outbound** internet traffic, without allowing inbound connections from the internet.
+- **Lives in**: A **public subnet** (needs an Elastic IP)
+
+#### Key Points
+- **Outbound only** — internet cannot initiate connections to private instances
+- **Managed by AWS** — no patching, no maintenance
+- **AZ-specific** — for HA, deploy one NAT Gateway **per AZ**
+- Charged **per hour + per GB** of data processed
+- Private subnet route table: `0.0.0.0/0 → NAT Gateway`
+
+---
+
+### IGW vs NAT Gateway
+| | Internet Gateway (IGW) | NAT Gateway |
+|---|---|---|
+| **Traffic Direction** | Inbound + Outbound | Outbound only |
+| **Used by** | Public subnet resources | Private subnet resources |
+| **Public IP needed** | Yes (on the instance) | Yes (Elastic IP on NAT GW itself) |
+| **Cost** | Free (data transfer charges) | Hourly + per GB |
+| **Managed by** | AWS (auto HA) | AWS (per AZ) |
+| **Use case** | Web servers, public-facing apps | Patching private EC2s, downloading updates |
+
+---
