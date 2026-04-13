@@ -25,3 +25,25 @@
 - Resources talk to each other via **private IPs** (no IGW needed)
 
 ---
+
+### 2. Subnets
+- A **subnet** is a subdivision of a VPC's CIDR block, tied to a **single AZ**.
+- You deploy resources (EC2, RDS, etc.) into subnets, not directly into VPCs.
+
+#### Types of Subnets
+| | Public Subnet | Private Subnet |
+|---|---|---|
+| **Internet Access** | Direct via IGW | Outbound only via NAT Gateway |
+| **Public IP** | Auto-assigned (if configured) | ❌ Not assigned |
+| **Use for** | Web servers, Load Balancers | Databases, App servers |
+
+#### Key Points
+- A subnet **belongs to exactly one AZ**
+- **Public subnet** = route table has a route to an **Internet Gateway (IGW)**
+- **Private subnet** = NO route to IGW; uses **NAT Gateway** for outbound internet
+- **Reserved IPs per subnet**: AWS reserves **5 IPs** (first 4 + last 1) in every subnet
+  - e.g., in `10.0.0.0/24` → `.0, .1, .2, .3` and `.255` are reserved → only **251 usable IPs**
+- Subnet CIDR must be a **subset** of the VPC CIDR
+- One subnet = one AZ, but one AZ can have **multiple subnets**
+
+---
