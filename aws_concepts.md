@@ -107,3 +107,29 @@
 | **Use case** | Web servers, public-facing apps | Patching private EC2s, downloading updates |
 
 ---
+
+### 6. VPC DNS Settings (Enable DNS Support & Enable DNS Hostnames)
+
+#### Enable DNS Support
+- **What**: Enables DNS resolution inside the VPC using AWS's built-in DNS server at **VPC CIDR base + 2** (e.g., `10.0.0.2`)
+- **Default**: ✅ Enabled in both Default and Custom VPCs
+- **When enabled**: Instances can resolve AWS service hostnames (e.g., `s3.amazonaws.com`) and internal VPC hostnames to IP addresses
+
+#### Enable DNS Hostnames
+- **What**: Assigns a **public DNS hostname** (e.g., `ec2-54-23-1-2.compute-1.amazonaws.com`) to instances that have a public IP address
+- **Default**: ✅ Enabled in Default VPC | ❌ Disabled in Custom VPC
+- **When enabled**: Instances with public IPs get a human-readable public DNS name, useful for connecting to them by hostname instead of IP
+
+#### Key Points
+- **Both must be ON** for instances to receive public DNS hostnames
+- If `DNS Support = OFF` → DNS resolution fails entirely in the VPC
+- If `DNS Support = ON` but `DNS Hostnames = OFF` → Instances resolve names but don't get public DNS hostnames
+- Both settings are **required** when associating a **Route 53 Private Hosted Zone** with the VPC
+
+#### Summary Table
+| Setting | Default VPC | Custom VPC | When to Enable |
+|---|---|---|---|
+| **DNS Support** | ✅ On | ✅ On | Always — needed for any DNS resolution in VPC |
+| **DNS Hostnames** | ✅ On | ❌ Off | When instances need public DNS names, or using Route 53 Private Hosted Zones |
+
+---
