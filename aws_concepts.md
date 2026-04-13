@@ -47,3 +47,25 @@
 - One subnet = one AZ, but one AZ can have **multiple subnets**
 
 ---
+
+### 3. Route Table
+- **What**: A set of rules (routes) that determines where network traffic is directed within a VPC.
+- Every subnet **must be associated** with a route table.
+
+#### How it works
+| Destination | Target | Meaning |
+|---|---|---|
+| `10.0.0.0/16` | local | Traffic stays within the VPC |
+| `0.0.0.0/0` | igw-xxxx | All other traffic → Internet Gateway |
+| `0.0.0.0/0` | nat-xxxx | All other traffic → NAT Gateway |
+
+#### Key Points
+- Every VPC has a **Main Route Table** (default, auto-created)
+- You can create **Custom Route Tables** and associate them with specific subnets
+- A subnet with a route to an **IGW** = **Public Subnet**
+- A subnet with a route to a **NAT Gateway** = **Private Subnet**
+- **Most specific route wins** (longest prefix match)
+- One route table can be associated with **multiple subnets**
+- One subnet can only be associated with **one route table** at a time
+
+---
