@@ -133,3 +133,26 @@
 | **DNS Hostnames** | ✅ On | ❌ Off | When instances need public DNS names, or using Route 53 Private Hosted Zones |
 
 ---
+
+### 7. Elastic IP (EIP)
+- **What**: A **static, public IPv4 address** that you own and can attach/detach to AWS resources (EC2, NAT Gateway, etc.) at any time.
+- **Why**: Normal public IPs on EC2 instances **change every time** the instance is stopped/started. Elastic IPs stay fixed.
+
+#### Key Points
+- **Static** — the IP does not change even if you stop/start the instance
+- **Tied to your account** — not to a specific instance; you allocate it and assign it
+- Can be **remapped instantly** to another instance (useful for failover)
+- **Free** when associated with a running instance
+- ⚠️ **Charged** when allocated but **NOT associated** with a running instance (~$0.005/hr)
+- Max **5 Elastic IPs per region** (soft limit)
+- **Required** by NAT Gateway — each NAT GW needs one Elastic IP
+
+#### Normal Public IP vs Elastic IP
+| | Normal Public IP | Elastic IP |
+|---|---|---|
+| **Persistence** | Changes on stop/start | ✅ Static, never changes |
+| **Cost** | Free | Free if in use, charged if idle |
+| **Remappable** | ❌ No | ✅ Yes |
+| **Use case** | Temporary/dev instances | Production, NAT Gateway, failover |
+
+---
